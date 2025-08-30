@@ -1,0 +1,32 @@
+header {
+    background-color: var(--corDestaque);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2%;
+    height: 80px;
+    border-bottom: 2px solid var(--corTexto);
+    position: fixed;
+    width: 100%;
+    color: var(--corPrincipal);
+    z-index: 1000;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.178);
+}
+header * {
+    font-size: 1.25em;
+}
+header a:hover {
+    opacity: 70%;
+}
+@media (max-width:300px) {
+    header {
+        flex-direction: column;
+        height: fit-content;
+        gap: 10px;
+        padding: 10px;
+    }
+    header * {
+        margin: 0;
+        font-size: 1.15em;
+    }
+}

@@ -1,0 +1,44 @@
+footer {
+    border-top: 2px solid var(--corTexto);
+    margin-top: 20px;
+    background-color: var(--corDestaque);
+    color: var(--corPrincipal);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    justify-content: space-around;
+    min-height: 100px;
+}
+footer a:hover {
+    opacity: 70%;
+}
+footer > div{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0px 10px;
+    margin-bottom: 10px;
+}
+#insta, #tel{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+#insta::before, #tel::before, #linktree::before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    background-size: cover;
+    position: relative;
+    display: inline-block;
+    bottom: 2px;
+}
+#insta::before {
+    background-image:url("../img//instagram-icone.png") ;    
+}
+#linktree::before {
+    background-image: url("../img/linktree-icone.png");
+    bottom: 0;
+}

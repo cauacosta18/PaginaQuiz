@@ -1,0 +1,13 @@
+main {
+    padding: 0 20px;
+    padding-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 525px;
+}
+main > h1 {
+    margin-bottom: 40px;
+    font-size: 1.25em;
+}
