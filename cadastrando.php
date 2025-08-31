@@ -14,7 +14,7 @@
   </head>
   <body>
     <header>
-      <h1>Quiz de Inglês</h1>
+      <h1>Quiz</h1>
       <a href="cadastrando.php">Início</a>
     </header>
     <main>
@@ -53,7 +53,7 @@
                 $nome_quiz = $_POST["nome-quiz"];
                 $descricao = $_POST["descricao"];
 
-                echo ("
+                echo <<<HTML
                     <form action='index.php' method='post' class='cadastro pergunta'>
                         <header>
                             <h3>Título: $nome_quiz</h3>
@@ -61,11 +61,10 @@
                             <p>N° questões: $num_questoes</p>
                         </header>
                         <div id='questoes'>
-
-                ");
+                HTML;
 
                 for ($i = 1; $i <= $num_questoes; $i++) {
-                    echo ("
+                    echo <<<HTML
                         <section>
                             <label for='nome-questao-$i'>Questão $i:</label>
                             <input type='text' class='input-texto' name='nome-questao-$i' id='nome-questao-$i' placeholder='Digite o título da questão' required>
@@ -79,10 +78,10 @@
                             </div>
 
                         </section>
-                    ");
+                    HTML;
                 }
 
-                echo ("
+                echo <<<HTML
                         </div>
                         <div class='grid'>
                             <input type='submit' value='Enviar'>
@@ -92,7 +91,7 @@
                         <input name='nome_quiz' value='$nome_quiz' type='hidden'>
                         <input name='descricao' value='$descricao' type='hidden'>
                     </form>
-                ");
+                HTML;
             }
         ?>
 

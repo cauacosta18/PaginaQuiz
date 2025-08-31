@@ -14,63 +14,62 @@
   </head>
   <body>
     <header>
-      <h1>Quiz de Inglês</h1>
+      <h1>Quiz</h1>
       <a href="cadastrando.php">Início</a>
     </header>
-    <main>
-      <h1>Substantivos Contáveis e Incontáveis</h1>
-      <form action="recebedados.php" method="post">
-        
-        <div id="perguntas">
-          
-            <?php
-              $letras = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+    <main>    
+      <?php
+        $letras = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 
-              $nome_quiz = $_POST["nome_quiz"];
-              $num_questoes = $_POST["num_questoes"];
-              $descricao = $_POST["descricao"];
+        $nome_quiz = $_POST["nome_quiz"];
+        $num_questoes = $_POST["num_questoes"];
+        $descricao = $_POST["descricao"];
 
-              for ($i=1; $i <= $num_questoes; $i++) {
-                $nome_questao = $_POST["nome-questao-$i"];
-                $num_opcoes = $_POST["num-opcoes-$i"];
-                $resposta_certa = $_POST["resposta-certa-$i"];
+        echo <<<HTML
+          <h1>$nome_quiz</h1>
+          <form action="recebedados.php" method="post">
+          <div id="perguntas">
+        HTML;
 
-                echo ("
-                  <section class='pergunta' id='P$i'>
-                    <p>$i &rpar; $nome_questao</p>
-                    <div class='grid'>
-                ");
+        for ($i=1; $i <= $num_questoes; $i++) {
+          $nome_questao = $_POST["nome-questao-$i"];
+          $num_opcoes = $_POST["num-opcoes-$i"];
+          $resposta_certa = $_POST["resposta-certa-$i"];
 
-                for ($a=0; $a < $num_opcoes; $a++) { 
+          echo <<<HTML
+            <section class='pergunta' id='P$i'>
+              <p>$i &rpar; $nome_questao</p>
+              <div class='grid'>
+          HTML;
 
-                  $letra = $letras[$a];
-                  $nome_opcao = $_POST["opcao-$letra-$i"];
-                  
-                  echo ("
-                    <input type='radio' name='Q$i' id='Q$i$letra' value='$letra' required/>
-                    <label for='Q$i$letra' class='radio-button'>$nome_opcao</label>
-                    <input name='resposta-certa-$i' value='$resposta_certa' hidden>
-                    <input name='nome-questao-$i' value='$nome_questao' hidden>
-                    <input name='num-opcoes-$i' value='$num_opcoes' hidden>
-                    <input name='nome-quiz' value='$nome_quiz' hidden>
-                    <input name='num-questoes' value='$num_questoes' hidden>
-                    <input name='descricao' value='$descricao' hidden>
-                    <input name='nome-$letra-$i' value='$nome_opcao' hidden>
-                  ");
-                }
-                echo ("
-                    </div>
-                  </section>
-                ");
-              }
-            ?>
-          
+          for ($a=0; $a < $num_opcoes; $a++) { 
+
+            $letra = $letras[$a];
+            $nome_opcao = $_POST["opcao-$letra-$i"];
+            
+            echo <<<HTML
+              <input type='radio' name='Q$i' id='Q$i$letra' value='$letra' required/>
+              <label for='Q$i$letra' class='radio-button'>$nome_opcao</label>
+              <input name='resposta-certa-$i' value='$resposta_certa' hidden>
+              <input name='nome-questao-$i' value='$nome_questao' hidden>
+              <input name='num-opcoes-$i' value='$num_opcoes' hidden>
+              <input name='nome-quiz' value='$nome_quiz' hidden>
+              <input name='num-questoes' value='$num_questoes' hidden>
+              <input name='descricao' value='$descricao' hidden>
+              <input name='nome-$letra-$i' value='$nome_opcao' hidden>
+            HTML;
+          }
+          echo <<<HTML
+              </div>
+            </section>
+          HTML;
+        }
+      ?>
         </div>
         <div class="grid">
           <input type="submit" value="Enviar" />
           <input type="reset" value="Resetar" />
         </div>
-        
       </form>
     </main>
     <footer>

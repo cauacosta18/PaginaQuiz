@@ -31,11 +31,11 @@
             }
         }
 
-        $nota_total = $num_res_certas*( 10/$num_questoes);
+        $nota_total = $num_res_certas*(10/$num_questoes);
         $nota_total = round($nota_total,1);
     ?>
     <header>
-      <h1>Quiz de Inglês</h1>
+      <h1>Quiz</h1>
       <a href="cadastrando.php">Início</a>
     </header>
     <main>
@@ -43,43 +43,45 @@
             
             <div id="nota">
                 <?php
-                    echo ("
+                    $valor_questão = round((10/$num_questoes),1);
+
+                    echo <<<HTML
                         <h2>Nota final: $nota_total</h2>
                         <p>Acertos: $num_res_certas</p>
-                        <p>Valor por questão: ".round((10/$num_questoes),1)."</p>
+                        <p>Valor por questão: $valor_questão</p>
 
                         <form action='index.php' method='post'>
                             <input type='hidden' name='nome_quiz' value='$nome_quiz'>
                             <input type='hidden' name='num_questoes' value='$num_questoes'>
                             <input type='hidden' name='descricao' value='$descricao'>
-                    ");
+                    HTML;
                     
                     for ($i=1; $i <= $num_questoes; $i++) {
                         $nome_questao = $_POST["nome-questao-$i"];
                         $num_opcoes = $_POST["num-opcoes-$i"];
                         $resposta_certa = $_POST["resposta-certa-$i"];
 
-                        echo("
+                        echo <<<HTML
                             <input type='hidden' name='nome-questao-$i' value='$nome_questao'>
                             <input type='hidden' name='num-opcoes-$i' value='$num_opcoes'>
                             <input type='hidden' name='resposta-certa-$i' value='$resposta_certa'>
-                        ");
+                        HTML;
 
                         for ($a=0; $a < $num_opcoes; $a++) { 
 
                             $letra = $letras[$a];
                             $nome_opcao = $_POST["nome-$letra-$i"];
 
-                            echo ("
+                            echo <<<HTML
                                 <input type='hidden' name='opcao-$letra-$i' value='$nome_opcao'>
-                            ");
+                            HTML;
                         }
                     }
 
-                    echo ("
+                    echo <<<HTML
                         <input type='submit' value='Refazer'>
                         </form>
-                    ")
+                    HTML;
                 ?>
             </div>
             <div>
@@ -91,21 +93,21 @@
                             $nome_questao = $_POST["nome-questao-$i"];
                             $num_opcoes = $_POST["num-opcoes-$i"];
 
-                            echo ("
+                            echo <<<HTML
                                 <li>
                                     <details>
                                         <summary>
                                             $i &rpar; 
-                            ");
+                            HTML;
 
                             if ($res == $res_certa) {
-                                echo ("
+                                echo <<<HTML
                                     &check;
-                                ");
+                                HTML;
                             } else {
-                                echo ("
+                                echo <<<HTML
                                     X
-                                ");
+                                HTML;
                             }
                             echo <<<HTML
                                 </summary>
@@ -119,30 +121,30 @@
                                 $nome_opcao = $_POST["nome-$letra-$i"];
 
                                 if ($res_certa == $letra and $res_certa == $res) {
-                                    echo ("
+                                    echo <<<HTML
                                         <p class='res-certa res-escolhida'>$nome_opcao &check;</p>
-                                    ");
+                                    HTML;
                                 } else if ($res_certa == $letra) {
-                                    echo ("
+                                    echo <<<HTML
                                         <p class='res-certa'> $nome_opcao </p>
-                                    ");
+                                    HTML;
                                 } else if ($res == $letra){
-                                    echo ("
+                                    echo <<<HTML
                                         <p class='res-escolhida'>$nome_opcao X</p>
-                                    ");
+                                    HTML;
                                 } else {
-                                    echo ("
+                                    echo <<<HTML
                                         <p> $nome_opcao </p>
-                                    ");
+                                    HTML;
                                 }
                                 
                             }
 
-                            echo ("
-                                </div>
-                            </details>
-                        </li>
-                            ");
+                            echo <<<HTML
+                                    </div>
+                                </details>
+                            </li>
+                            HTML;
 
                         }
                     ?> 
