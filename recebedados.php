@@ -15,34 +15,28 @@
 </head>
 <body>
     <?php
+        $letras = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
         $num_res_certas = 0;
-        $num_questoes = 5;
+        $num_questoes = $_POST["num-questoes"];
+        $nome_quiz = $_POST["nome-quiz"];
+        $descricao = $_POST["descricao"];
 
         for ($i=1; $i <= $num_questoes; $i++) { 
             $res = $_POST["Q$i"];
+            $res_certa = $_POST["resposta-certa-$i"];
 
-            if ($i==1) {
-                $res_certa = "B";
-            } elseif ($i==2) {
-                $res_certa = "B";
-            } elseif ($i==3) {
-                $res_certa = "C";
-            } elseif ($i==4) {
-                $res_certa = "C";
-            } else {
-                $res_certa = "D";
-            }
-            
             if ($res == $res_certa) {
                 $num_res_certas++;
+            } else {
             }
         }
 
         $nota_total = $num_res_certas*( 10/$num_questoes);
+        $nota_total = round($nota_total,1);
     ?>
     <header>
       <h1>Quiz de Inglês</h1>
-      <a href="index.php">Início</a>
+      <a href="cadastrando.php">Início</a>
     </header>
     <main>
         <section id="resultado">
@@ -52,151 +46,106 @@
                     echo ("
                         <h2>Nota final: $nota_total</h2>
                         <p>Acertos: $num_res_certas</p>
-                        <p>Valor por questão: ".(10/$num_questoes)."</p>
+                        <p>Valor por questão: ".round((10/$num_questoes),1)."</p>
+
+                        <form action='index.php' method='post'>
+                            <input type='hidden' name='nome_quiz' value='$nome_quiz'>
+                            <input type='hidden' name='num_questoes' value='$num_questoes'>
+                            <input type='hidden' name='descricao' value='$descricao'>
+                    ");
+                    
+                    for ($i=1; $i <= $num_questoes; $i++) {
+                        $nome_questao = $_POST["nome-questao-$i"];
+                        $num_opcoes = $_POST["num-opcoes-$i"];
+                        $resposta_certa = $_POST["resposta-certa-$i"];
+
+                        echo("
+                            <input type='hidden' name='nome-questao-$i' value='$nome_questao'>
+                            <input type='hidden' name='num-opcoes-$i' value='$num_opcoes'>
+                            <input type='hidden' name='resposta-certa-$i' value='$resposta_certa'>
+                        ");
+
+                        for ($a=0; $a < $num_opcoes; $a++) { 
+
+                            $letra = $letras[$a];
+                            $nome_opcao = $_POST["nome-$letra-$i"];
+
+                            echo ("
+                                <input type='hidden' name='opcao-$letra-$i' value='$nome_opcao'>
+                            ");
+                        }
+                    }
+
+                    echo ("
+                        <input type='submit' value='Refazer'>
+                        </form>
                     ")
                 ?>
-                
-                <a href="index.php">Voltar</a>
             </div>
             <div>
                 <ul>
-                    <li>
-                        <details>
-                            <summary>
-                                1 &rpar; 
-                                <?php
-                                    $res = $_POST["Q1"];
-                                    if ($res == "B") {
-                                        echo ("
-                                            &check;
-                                        ");
-                                    } else {
-                                        echo ("
-                                            X
-                                        ");
-                                    }
-                                ?>
-                            </summary>
-                            <div class="details-content">
-                                <p>Qual dos substantivos abaixo é contável em inglês?</p>
-                                
-                                <p>Advice</p>
-                                <p class="res-certa">Person</p>
-                                <p>Knowledge</p>
-                                <p>Information</p>
-                                
-                            </div>
-                        </details>
-                    </li>
-                    <li>
-                        <details>
-                            <summary>2 &rpar;
-                                <?php
-                                    $res = $_POST["Q2"];
-                                    if ($res == "B") {
-                                        echo ("
-                                            &check;
-                                        ");
-                                    } else {
-                                        echo ("
-                                            X
-                                        ");
-                                    }
-                                ?>
-                            </summary>
-                            <div class="details-content">
-                                <p>A palavra “people” (pessoas) é:</p>
-                                
-                                <p>Um substantivo incontável</p>
-                                <p class="res-certa">A forma plural de "person"</p>
-                                <p>Um adjetivo</p>
-                                <p>Um verbo</p>
-                                
-                            </div>
-                        </details>
-                    </li>
-                    <li>
-                        <details>
-                            <summary>3 &rpar;
-                                <?php
-                                    $res = $_POST["Q3"];
-                                    if ($res == "C") {
-                                        echo ("
-                                            &check;
-                                        ");
-                                    } else {
-                                        echo ("
-                                            X
-                                        ");
-                                    }
-                                ?>
-                            </summary>
-                            <div class="details-content">
-                                <p>Qual destas palavras é um substantivo incontável em inglês?</p>
-                                
-                                <p>Friend</p>
-                                <p>Stranger</p>
-                                <p class="res-certa">Advice</p>
-                                <p>Teacher</p>
-                                
-                            </div>
-                        </details>
-                    </li>
-                    <li>
-                        <details>
-                            <summary>4 &rpar;
-                                <?php
-                                    $res = $_POST["Q4"];
-                                    if ($res == "C") {
-                                        echo ("
-                                            &check;
-                                        ");
-                                    } else {
-                                        echo ("
-                                            X
-                                        ");
-                                    }
-                                ?>
-                            </summary>
-                            <div class="details-content">
-                                <p>Complete a frase corretamente: "You can't count ______, but you can count people."</p>
+                    <?php
+                        for ($i=1; $i <= $num_questoes; $i++) {
+                            $res = $_POST["Q$i"];
+                            $res_certa = $_POST["resposta-certa-$i"];
+                            $nome_questao = $_POST["nome-questao-$i"];
+                            $num_opcoes = $_POST["num-opcoes-$i"];
 
-                                <p>Teachers</p>
-                                <p>Friends</p>
-                                <p class="res-certa">Advice</p>
-                                <p>Children</p>
-                                
-                            </div>
-                        </details>
-                    </li>
-                    <li>
-                        <details>
-                            <summary>5 &rpar;
-                                <?php
-                                    $res = $_POST["Q5"];
-                                    if ($res == "D") {
-                                        echo ("
-                                            &check;
-                                        ");
-                                    } else {
-                                        echo ("
-                                            X
-                                        ");
-                                    }
-                                ?>
-                            </summary>
-                            <div class="details-content">
-                                <p>Complete a frase com a melhor opção: We met many interesting ___ at the conference.</p>
+                            echo ("
+                                <li>
+                                    <details>
+                                        <summary>
+                                            $i &rpar; 
+                            ");
 
-                                <p>Informations</p>
-                                <p>Peoples</p>
-                                <p>Persons</p>
-                                <p class="res-certa">People</p>
+                            if ($res == $res_certa) {
+                                echo ("
+                                    &check;
+                                ");
+                            } else {
+                                echo ("
+                                    X
+                                ");
+                            }
+                            echo <<<HTML
+                                </summary>
+                                <div class='details-content'>
+                                <p>$nome_questao</p>
+                            HTML;
+                            
+
+                            for ($a=0; $a < $num_opcoes; $a++) { 
+                                $letra = $letras[$a];
+                                $nome_opcao = $_POST["nome-$letra-$i"];
+
+                                if ($res_certa == $letra and $res_certa == $res) {
+                                    echo ("
+                                        <p class='res-certa res-escolhida'>$nome_opcao &check;</p>
+                                    ");
+                                } else if ($res_certa == $letra) {
+                                    echo ("
+                                        <p class='res-certa'> $nome_opcao </p>
+                                    ");
+                                } else if ($res == $letra){
+                                    echo ("
+                                        <p class='res-escolhida'>$nome_opcao X</p>
+                                    ");
+                                } else {
+                                    echo ("
+                                        <p> $nome_opcao </p>
+                                    ");
+                                }
                                 
-                            </div>
-                        </details>
-                    </li>
-                    
+                            }
+
+                            echo ("
+                                </div>
+                            </details>
+                        </li>
+                            ");
+
+                        }
+                    ?> 
                 </ul>
             </div>
             
