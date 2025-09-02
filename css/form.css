@@ -1,7 +1,7 @@
 #perguntas {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 10px;
+    gap: 20px;
     width: 100%;
 }
 @media (max-width: 900px) {
@@ -184,4 +184,7 @@ form {
 }
 .input-texto {
     cursor: text !important;
+}
+#titulo-quiz {
+    font-size: 2em;
 }

@@ -26,7 +26,7 @@
         $descricao = $_POST["descricao"];
 
         echo <<<HTML
-          <h1>$nome_quiz</h1>
+          <h1 id="titulo-quiz">$nome_quiz</h1>
           <form action="recebedados.php" method="post">
           <div id="perguntas">
         HTML;
